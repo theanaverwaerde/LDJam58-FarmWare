@@ -22,7 +22,7 @@ function WheatGame:update(dt)
 		end
 	else
 		love.window.setTitle("Wheats remaining: " .. self.remainingWheats)
-		for i=1,25 do
+		for i=1,#self.wheats do
 			if self.wheats[i] then
 				local row = math.floor((i-1)/5)
 				local col = (i-1)%5
@@ -42,7 +42,7 @@ end
 function WheatGame:draw()
 	love.graphics.setBackgroundColor(0.2, 0.7, 0.1)
 
-	for i=1,25 do
+	for i=1,#self.wheats do
 		if self.wheats[i] then
 			local row = math.floor((i-1)/5)
 			local col = (i-1)%5

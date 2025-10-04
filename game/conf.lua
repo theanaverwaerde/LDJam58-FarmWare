@@ -11,7 +11,7 @@ end
 function love.conf(t)
 	t.identity              = nil
 	t.appendidentity        = false
-	t.version               = "11.4"
+	t.version               = "11.5"
 	t.console               = false
 	t.accelerometerjoystick = false
 	t.externalstorage       = false
@@ -22,7 +22,7 @@ function love.conf(t)
 
 	t.window.title          = "Untitled"
 	t.window.icon           = nil
-	t.window.width          = 800
+	t.window.width          = 600
 	t.window.height         = 600
 	t.window.borderless     = false
 	t.window.resizable      = false

@@ -1,22 +1,40 @@
 Object = require "lib.classic"
-Scene = {}
+GameSize = 600
 
 local games  = {
 	require "wheatGame",
+	require "appleGame",
 }
 
+Scene = {}
+CurrentGameIdx = math.random(1, #games)
+
+GameSpeed = 1
+GameSpeedStep = .4
+
 function love.load()
-	Scene = games[1]()
+	Scene = games[CurrentGameIdx]()
 end
 
 function love.update(dt)
-	Scene:update(dt)
+	Scene:update(dt * GameSpeed)
 end
 
 function love.draw()
 	Scene:draw()
 end
 
-function NextScene()
-	Scene = games[math.random(1, #games)]()
+function NextScene(win)
+	local newIdx
+	repeat
+		newIdx = math.random(1, #games)
+	until newIdx ~= CurrentGameIdx
+
+	CurrentGameIdx = newIdx
+
+	if win then
+		GameSpeed = GameSpeed + GameSpeedStep
+	end
+
+	Scene = games[CurrentGameIdx]()
 end
