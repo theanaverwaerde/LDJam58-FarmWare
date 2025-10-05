@@ -4,10 +4,12 @@ GameSize = 600
 local games  = {
 	require "wheatGame",
 	require "appleGame",
+	require "chickenGame",
 }
 
 Scene = {}
-CurrentGameIdx = math.random(1, #games)
+-- CurrentGameIdx = math.random(1, #games)
+CurrentGameIdx = 3
 
 GameSpeed = 1
 GameSpeedStep = .4
