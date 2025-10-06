@@ -18,7 +18,7 @@ function WheatGame:update(dt)
 		print("You win!")
 		love.window.setTitle("You win! Click to continue.")
 		if love.mouse.isDown(1) then
-			NextScene()
+			NextScene(true)
 		end
 	else
 		love.window.setTitle("Wheats remaining: " .. self.remainingWheats)
