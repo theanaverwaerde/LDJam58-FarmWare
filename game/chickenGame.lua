@@ -8,6 +8,8 @@ function ChickenGame:new()
 	self.chickenImg = love.graphics.newImage("assets/chicken.png")
 	self.chickenHeight = self.chickenImg:getHeight()
 	self.durationChickenMove = .5
+	self.totalTiming = 6
+	self.timing = self.totalTiming
 
 	for i=1,4 do
 		self.chickens[i] = {x = math.random(self.fenceImg:getWidth(), GameSize - self.chickenImg:getWidth()), lastMove = 0}
@@ -23,11 +25,13 @@ function ChickenGame:update(dt)
 		end
 	end
 	if allCaught then
-		print("You win!")
-		love.window.setTitle("You win! Click to continue.")
-		if love.mouse.isDown(1) then
-			NextScene(true)
-		end
+		NextScene(true)
+		return
+	end
+
+	self.timing = self.timing - dt
+	if self.timing <= 0 then
+		NextScene(false)
 		return
 	end
 
@@ -65,6 +69,14 @@ function ChickenGame:draw()
 		love.graphics.draw(self.chickenImg, self.chickens[i].x, GameSize - 100 - self.chickenImg:getHeight())
 	end
 
+	love.graphics.setColor(0.8, 0.8, 0.8)
+	love.graphics.rectangle("fill", 0, 0, GameSize, 20)
+	love.graphics.setColor(0.1, 0.7, 0.1)
+	love.graphics.rectangle("fill", 0, 0, GameSize * (self.timing / self.totalTiming), 20)
+	love.graphics.setColor(1, 1, 1)
+
+	love.graphics.setFont(love.graphics.newFont(24))
+	love.graphics.print("Capture the chickens!", 10, 10)
 end
 
 return ChickenGame

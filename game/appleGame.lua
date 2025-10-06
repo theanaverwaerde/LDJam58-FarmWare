@@ -28,19 +28,14 @@ function AppleGame:update(dt)
 			end
 		end
 		if allCaught then
-			print("You win!")
-			love.window.setTitle("You win! Click to continue.")
+			print("You win apples!")
 		else
-			print("You lose!")
-			love.window.setTitle("You lose! Click to continue.")
+			print("You lose apples!")
 		end
-		if love.mouse.isDown(1) then
-			NextScene(allCaught)
-		end
+		
+		NextScene(allCaught)
 		return
 	end
-
-	love.window.setTitle("Catch the apples!")
 
 	self.droppingTimer = self.droppingTimer + dt
 	if self.droppingTimer >= self.droppingInterval then
@@ -93,6 +88,9 @@ function AppleGame:draw()
 			love.graphics.draw(self.appleImg, self.apples[i].x, self.apples[i].y)
 		end
 	end
+
+	love.graphics.setFont(love.graphics.newFont(24))
+	love.graphics.print("Catch the apples!", 10, 10)
 
 	love.graphics.draw(self.basketImg, love.mouse.getX() - self.basketSize / 2, GameSize - 100)
 end

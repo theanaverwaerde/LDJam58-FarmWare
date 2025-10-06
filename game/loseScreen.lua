@@ -22,7 +22,7 @@ function LoseScreen:update(dt)
 end
 
 function LoseScreen:draw()
-	love.graphics.setBackgroundColor(1, 1, 1)
+	love.graphics.setBackgroundColor(0, 0, 0)
 
 	-- close with old scene
 	if timer < timerDoorBase then
