@@ -6,6 +6,10 @@
 - [MakeLove](https://github.com/pfirsich/makelove) - Game Packaging Tool
 - [VSCode](https://code.visualstudio.com/) - Code Editor
 
+- [Excalidraw](https://excalidraw.com/) - For drawing
+- [Wolfram Tones](https://tones.wolfram.com) - Music Generator
+- [Bfxr](https://www.bfxr.net/) - Sound Effect Generator
+
 ## My LOVE2D Experience
 
 This is my first time using LOVE2D and Lua.
