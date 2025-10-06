@@ -1,10 +1,8 @@
 local TitleScreen = Object.extend(Object)
 
-local show = false
 local timerDoorBase = .5
 local waitCloseTime = .3
 local openTime = .8
-local timer = 0
 
 function TitleScreen:new()
 	self.doorImg = love.graphics.newImage("assets/door.png")
@@ -13,30 +11,33 @@ function TitleScreen:new()
 	self.bodyImg = love.graphics.newImage("assets/body.png")
 	self.lifeImg = love.graphics.newImage("assets/on.png")
 	self.noLifeImg = love.graphics.newImage("assets/off.png")
+
+	self.show = false
+	self.timer = 0
 end
 
 function TitleScreen:update(dt)
-	if not show then
+	if not self.show then
 		return
 	end
 
-	timer = timer + dt
+	self.timer = self.timer + dt
 
 
-	if timer > timerDoorBase + waitCloseTime + timerDoorBase and
-	   timer < timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase then
+	if self.timer > timerDoorBase + waitCloseTime + timerDoorBase and
+	   self.timer < timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase then
 		love.mouse.setVisible(true)
 	end
 
-	if self.waitingForNext and timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase then
+	if self.waitingForNext and self.timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase then
 		self.waitingForNext = false
 		ApplyNextScene()
 		return
 	end
 
-	if timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase + waitCloseTime + timerDoorBase then
+	if self.timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase + waitCloseTime + timerDoorBase then
 		Playing = true
-		show = false
+		self.show = false
 		return
 	end
 end
@@ -51,27 +52,27 @@ end
 -- open door in .2s
 
 function TitleScreen:draw()
-	if not show then
+	if not self.show then
 		return
 	end
 	love.graphics.setColor(1, 1, 1)
 
 	-- close with old scene
-	if timer < timerDoorBase then
-		local t = timer / timerDoorBase
+	if self.timer < timerDoorBase then
+		local t = self.timer / timerDoorBase
 		love.graphics.draw(self.doorImg, -300 + 300 * t)
 		love.graphics.draw(self.doorImg, 900 - 300 * t, 0, 0, -1, 1)
 		return
 	-- keep close
-	elseif timer < timerDoorBase + waitCloseTime or
-	(timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase and 
-	timer < timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase + waitCloseTime) then
+	elseif self.timer < timerDoorBase + waitCloseTime or
+	(self.timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase and 
+	self.timer < timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase + waitCloseTime) then
 		love.graphics.draw(self.doorImg, 0)
 		love.graphics.draw(self.doorImg, 600, 0, 0, -1, 1)
 		return
 	-- open with new scene
-	elseif timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase + waitCloseTime then
-		local t = (timer - timerDoorBase - waitCloseTime - timerDoorBase - openTime - timerDoorBase - waitCloseTime) / timerDoorBase
+	elseif self.timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase + waitCloseTime then
+		local t = (self.timer - timerDoorBase - waitCloseTime - timerDoorBase - openTime - timerDoorBase - waitCloseTime) / timerDoorBase
 		love.graphics.draw(self.doorImg, 0 - 300 * t)
 		love.graphics.draw(self.doorImg, 600 + 300 * t, 0, 0, -1, 1)
 		return
@@ -108,13 +109,13 @@ function TitleScreen:draw()
 
 	
 	-- opening for transition screen
-	if timer < timerDoorBase + waitCloseTime + timerDoorBase then
-		local t = (timer - timerDoorBase - waitCloseTime) / timerDoorBase
+	if self.timer < timerDoorBase + waitCloseTime + timerDoorBase then
+		local t = (self.timer - timerDoorBase - waitCloseTime) / timerDoorBase
 		love.graphics.draw(self.doorImg, 0 - 300 * t)
 		love.graphics.draw(self.doorImg, 600 + 300 * t, 0, 0, -1, 1)
 	-- closing for transition screen
-	elseif timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime then
-		local t = (timer - timerDoorBase - waitCloseTime - timerDoorBase - openTime) / timerDoorBase
+	elseif self.timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime then
+		local t = (self.timer - timerDoorBase - waitCloseTime - timerDoorBase - openTime) / timerDoorBase
 		love.graphics.draw(self.doorImg, -300 + 300 * t)
 		love.graphics.draw(self.doorImg, 900 - 300 * t, 0, 0, -1, 1)
 	end
@@ -123,9 +124,9 @@ end
 
 function TitleScreen:trigger(win)
 	Playing = false
-	show = true
+	self.show = true
 	self.happy = win
-	timer = 0
+	self.timer = 0
 	self.waitingForNext = true
 end
 

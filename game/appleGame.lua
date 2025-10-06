@@ -32,7 +32,7 @@ function AppleGame:update(dt)
 		else
 			print("You lose apples!")
 		end
-		
+
 		NextScene(allCaught)
 		return
 	end
@@ -70,7 +70,6 @@ function AppleGame:update(dt)
 			if appleY > GameSize and not self.apples[i].caught then
 				self.finish = true
 				print("Missed an apple!")
-				love.window.setTitle("You lose! Click to continue.")
 			end
 		end
 	end

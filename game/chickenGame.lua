@@ -35,8 +35,6 @@ function ChickenGame:update(dt)
 		return
 	end
 
-	love.window.setTitle("Capture the chickens!")
-
 	local mouseX = love.mouse.getX()
 	local mouseY = love.mouse.getY()
 	local movedChicken = false

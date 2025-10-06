@@ -2,7 +2,6 @@ local LoseScreen = Object.extend(Object)
 
 local timerDoorBase = .5
 local waitCloseTime = .3
-local timer = 0
 
 function LoseScreen:new()
 	love.mouse.setVisible(true)
@@ -11,12 +10,13 @@ function LoseScreen:new()
 	self.winHeadImg = love.graphics.newImage("assets/win.png")
 	self.loseHeadImg = love.graphics.newImage("assets/lose.png")
 	self.bodyImg = love.graphics.newImage("assets/body.png")
+	self.timer = 0
 end
 
 function LoseScreen:update(dt)
-	timer = timer + dt
+	self.timer = self.timer + dt
 
-	if timer > timerDoorBase + waitCloseTime + timerDoorBase and love.mouse.isDown(1) then
+	if self.timer > timerDoorBase + waitCloseTime + timerDoorBase and love.mouse.isDown(1) then
 		ResetGame()
 	end
 end
@@ -25,13 +25,13 @@ function LoseScreen:draw()
 	love.graphics.setBackgroundColor(0, 0, 0)
 
 	-- close with old scene
-	if timer < timerDoorBase then
-		local t = timer / timerDoorBase
+	if self.timer < timerDoorBase then
+		local t = self.timer / timerDoorBase
 		love.graphics.draw(self.doorImg, -300 + 300 * t)
 		love.graphics.draw(self.doorImg, 900 - 300 * t, 0, 0, -1, 1)
 		return
 	-- keep close
-	elseif timer < timerDoorBase + waitCloseTime then
+	elseif self.timer < timerDoorBase + waitCloseTime then
 		love.graphics.draw(self.doorImg, 0)
 		love.graphics.draw(self.doorImg, 600, 0, 0, -1, 1)
 		return
@@ -57,8 +57,8 @@ function LoseScreen:draw()
 
 	love.graphics.setColor(1, 1, 1)
 
-	if timer < timerDoorBase + waitCloseTime + timerDoorBase then
-		local t = (timer - timerDoorBase - waitCloseTime) / timerDoorBase
+	if self.timer < timerDoorBase + waitCloseTime + timerDoorBase then
+		local t = (self.timer - timerDoorBase - waitCloseTime) / timerDoorBase
 		love.graphics.draw(self.doorImg, 0 - 300 * t)
 		love.graphics.draw(self.doorImg, 600 + 300 * t, 0, 0, -1, 1)
 	end
