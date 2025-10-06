@@ -11,6 +11,9 @@ function TitleScreen:new()
 	self.bodyImg = love.graphics.newImage("assets/body.png")
 	self.lifeImg = love.graphics.newImage("assets/on.png")
 	self.noLifeImg = love.graphics.newImage("assets/off.png")
+	self.doorSound = love.audio.newSource("assets/door.wav", "static")
+	self.winSound = love.audio.newSource("assets/win.wav", "static")
+	self.loseSound = love.audio.newSource("assets/lose.wav", "static")
 
 	self.show = false
 	self.timer = 0
@@ -22,6 +25,35 @@ function TitleScreen:update(dt)
 	end
 
 	self.timer = self.timer + dt
+
+	if not self.doors[1] then
+		self.doorSound:play()
+		self.doors[1] = true
+	end
+
+	if not self.doors[2] and self.timer > timerDoorBase + waitCloseTime then
+		self.doorSound:play()
+		self.doors[2] = true
+	end
+
+	if not self.sound and self.timer > timerDoorBase + waitCloseTime + timerDoorBase then
+		self.sound = true
+		if self.happy then
+			self.winSound:play()
+		else
+			self.loseSound:play()
+		end
+	end
+
+	if not self.doors[3] and self.timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime then
+		self.doorSound:play()
+		self.doors[3] = true
+	end
+
+	if not self.doors[4] and self.timer > timerDoorBase + waitCloseTime + timerDoorBase + openTime + timerDoorBase + waitCloseTime then
+		self.doorSound:play()
+		self.doors[4] = true
+	end
 
 
 	if self.timer > timerDoorBase + waitCloseTime + timerDoorBase and
@@ -128,6 +160,8 @@ function TitleScreen:trigger(win)
 	self.happy = win
 	self.timer = 0
 	self.waitingForNext = true
+	self.doors = {}
+	self.sound = false
 end
 
 return TitleScreen

@@ -10,11 +10,38 @@ function LoseScreen:new()
 	self.winHeadImg = love.graphics.newImage("assets/win.png")
 	self.loseHeadImg = love.graphics.newImage("assets/lose.png")
 	self.bodyImg = love.graphics.newImage("assets/body.png")
+
+	self.doors = {}
+	self.soundPlayed = false
+
+	self.doorSound = love.audio.newSource("assets/door.wav", "static")
+	self.gameOverSound = love.audio.newSource("assets/gameover.wav", "static")
+
 	self.timer = 0
 end
 
 function LoseScreen:update(dt)
 	self.timer = self.timer + dt
+
+	if not self.doors[1] then
+		self.doorSound:play()
+		self.doors[1] = true
+	end
+
+	if not self.doors[2] and self.timer > timerDoorBase + waitCloseTime then
+		self.doorSound:play()
+		self.doors[2] = true
+	end
+
+	if not self.soundPlayed and self.timer > timerDoorBase + waitCloseTime + timerDoorBase then
+		self.soundPlayed = true
+		self.gameOverSound:play()
+	end
+
+	if not self.doors[2] and self.timer > timerDoorBase + waitCloseTime then
+		self.doorSound:play()
+		self.doors[2] = true
+	end
 
 	if self.timer > timerDoorBase + waitCloseTime + timerDoorBase and love.mouse.isDown(1) then
 		ResetGame()

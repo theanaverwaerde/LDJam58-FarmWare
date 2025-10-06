@@ -20,10 +20,16 @@ Life = 3
 local gameSpeed = 1
 local gameSpeedStep = .4
 
+
+
 function love.load()
 	scene = require "titleScreen"()
 	transitionScreen = require "transitionScreen"()
 	loseScreen = require "loseScreen"
+	local music = love.audio.newSource("assets/wolfram.wav", "stream")
+	music:setVolume(0.3)
+	music:setLooping(true)
+	music:play()
 end
 
 function love.update(dt)
