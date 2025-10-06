@@ -1,9 +1,9 @@
 local TitleScreen = Object.extend(Object)
 
 local show = false
-local timerDoorBase = 1
-local waitCloseTime = .5
-local openTime = 2
+local timerDoorBase = .5
+local waitCloseTime = .3
+local openTime = .8
 local timer = 0
 
 function TitleScreen:new()

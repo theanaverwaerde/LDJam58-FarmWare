@@ -23,7 +23,7 @@ local gameSpeedStep = .4
 function love.load()
 	scene = require "titleScreen"()
 	transitionScreen = require "transitionScreen"()
-	-- loseScreen = require "loseScreen"
+	loseScreen = require "loseScreen"
 end
 
 function love.update(dt)
@@ -45,6 +45,7 @@ function NextScene(win)
 		Life = Life - 1
 		if Life <= 0 then
 			print("Game Over!")
+			gameSpeed = 1
 			scene = loseScreen()
 			return
 		end
@@ -72,5 +73,5 @@ function ResetGame()
 	Life = 3
 	gameSpeed = 1
 	currentGameIdx = 0
-	scene = require "titleScreen"()
+	NextScene(true)
 end

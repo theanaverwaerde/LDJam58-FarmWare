@@ -17,6 +17,7 @@ function TitleScreen:draw()
 	love.graphics.setFont(love.graphics.newFont(24))
 	love.graphics.print("Welcome to FarmWare!", 180, 200)
 	love.graphics.print("Click to start!", 220, 300)
+	love.graphics.setColor(1, 1, 1)
 end
 
 return TitleScreen
