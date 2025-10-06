@@ -1,5 +1,12 @@
 # LDJam 58 - Theme "Collector"
 
+## Where I can play?
+All is in the [itch.io page](https://theanaverwaerde.itch.io/farmware)!
+
+You can play on your browser or download the .love file and run it with LOVE2D 11.5.
+
+[Ludum Dare 58 Page](https://ldjam.com/events/ludum-dare/58/farmware)
+
 ## Stack
 - [Love2D](https://love2d.org/) - Game Framework
 - [Lua](https://www.lua.org/) - Programming Language
